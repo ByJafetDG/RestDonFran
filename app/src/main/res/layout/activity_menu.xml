@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F151B"
+    tools:layout_editor_absoluteX="3dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#00EEC800"
+        android:fontFamily="@font/fenix"
+        android:text="Bebidas"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.171"
+        app:strokeColor="#EEC800"
+        app:strokeWidth="?android:attr/buttonCornerRadius" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="111dp"
+        android:layout_height="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        app:srcCompat="@drawable/donfranremovebg" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#EEC800"
+        android:fontFamily="@font/fenix"
+        android:text="Menú"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.171"
+        app:strokeColor="#EEC800"
+        app:strokeWidth="?android:attr/buttonCornerRadius" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="405dp"
+        android:layout_height="521dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.176">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="90dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="82dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/fenix"
+                android:text="Cortes"
+                android:textColor="#FFF8F8"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="-34dp"
+                app:srcCompat="@drawable/vectorvertical" />
+
+            <HorizontalScrollView
+                android:layout_width="400dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="65dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/corteuno" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortedos" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortetres" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortecuatro" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Hamburguesas"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesa" />
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguestres" />
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesacuatro" />
+
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesacinco" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Pastas"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastauno" />
+
+                        <ImageView
+                            android:id="@+id/imageView14"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastados" />
+
+                        <ImageView
+                            android:id="@+id/imageView15"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastatres" />
+
+                        <ImageView
+                            android:id="@+id/imageView16"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastatres" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Postres"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView22"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/imageView23"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/imageView24"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/imageView25"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953"
+        app:srcCompat="@drawable/vectorlargo" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="40dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.991"
+        app:srcCompat="@drawable/vectorhouse" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="40dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.991"
+        app:srcCompat="@drawable/vectorzoom" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.991"
+        app:srcCompat="@drawable/vectorvolver" />
+</androidx.constraintlayout.widget.ConstraintLayout>
