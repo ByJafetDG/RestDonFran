@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="0dp">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnBebidas"
         android:layout_width="140dp"
         android:layout_height="52dp"
         android:backgroundTint="#00EEC800"
@@ -29,7 +29,7 @@
         app:strokeWidth="?android:attr/buttonCornerRadius" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivLogo"
         android:layout_width="111dp"
         android:layout_height="104dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +40,7 @@
         app:srcCompat="@drawable/donfranremovebg" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnMenu"
         android:layout_width="140dp"
         android:layout_height="52dp"
         android:backgroundTint="#EEC800"
@@ -60,10 +60,11 @@
 
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/svMenu"
         android:layout_width="405dp"
         android:layout_height="521dp"
         android:layout_marginTop="200dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -340,7 +341,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView22"
+                            android:id="@+id/iv"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="65dp"
@@ -383,7 +384,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/ivBarra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -395,38 +396,38 @@
         app:srcCompat="@drawable/vectorlargo" />
 
     <ImageView
-        android:id="@+id/imageView18"
-        android:layout_width="40dp"
-        android:layout_height="33dp"
+        android:id="@+id/ivHome"
+        android:layout_width="39dp"
+        android:layout_height="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
+        app:layout_constraintVertical_bias="0.99"
         app:srcCompat="@drawable/vectorhouse" />
 
     <ImageView
-        android:id="@+id/imageView19"
-        android:layout_width="40dp"
-        android:layout_height="33dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
-        app:srcCompat="@drawable/vectorzoom" />
-
-    <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/ivBack"
         android:layout_width="38dp"
         android:layout_height="34dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
+        app:layout_constraintVertical_bias="0.992"
         app:srcCompat="@drawable/vectorvolver" />
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.713"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.989"
+        app:srcCompat="@drawable/user" />
 </androidx.constraintlayout.widget.ConstraintLayout>

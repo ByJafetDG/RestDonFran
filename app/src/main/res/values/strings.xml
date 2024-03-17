@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DonFranRestaurant</string>
+    <string name="default_web_client_id">TU_WEB_CLIENT_ID_AQUÍ</string>
 </resources>
