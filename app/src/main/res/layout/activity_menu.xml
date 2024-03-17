@@ -8,6 +8,325 @@
     tools:layout_editor_absoluteX="3dp"
     tools:layout_editor_absoluteY="0dp">
 
+    <ScrollView
+        android:id="@+id/svBebidas"
+        android:layout_width="405dp"
+        android:layout_height="521dp"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.176">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGaseosas"
+                android:layout_width="115dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="82dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/fenix"
+                android:text="Gaseosas"
+                android:textColor="#FFF8F8"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/ivbBarB1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="-34dp"
+                app:srcCompat="@drawable/vectorvertical" />
+
+            <HorizontalScrollView
+                android:layout_width="400dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/gaseosa1"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="65dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/corteuno" />
+
+                    <ImageView
+                        android:id="@+id/gaseosa2"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortedos" />
+
+                    <ImageView
+                        android:id="@+id/gaseosa3"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortetres" />
+
+                    <ImageView
+                        android:id="@+id/gaseosa4"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="Contiene la imagen de un corte"
+                        app:srcCompat="@drawable/cortecuatro" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNaturales"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Naturales"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ivBarB2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ivNaturales1"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesa" />
+
+                        <ImageView
+                            android:id="@+id/ivNaturales2"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguestres" />
+
+                        <ImageView
+                            android:id="@+id/ivNaturales3"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesacuatro" />
+
+                        <ImageView
+                            android:id="@+id/ivNaturales4"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/hamburguesacinco" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCervezas"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Cervezas"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ivBarB3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ivCerveza1"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastauno" />
+
+                        <ImageView
+                            android:id="@+id/ivCerveza2"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastados" />
+
+                        <ImageView
+                            android:id="@+id/ivCerveza3"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastatres" />
+
+                        <ImageView
+                            android:id="@+id/ivCerveza4"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/pastatres" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCalientes"
+                    android:layout_width="190dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="82dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/fenix"
+                    android:text="Calientes"
+                    android:textColor="#FFF8F8"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ivBarB4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-34dp"
+                    app:srcCompat="@drawable/vectorvertical" />
+
+                <HorizontalScrollView
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ivCaliente1"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="65dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/ivCaliente2"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/ivCaliente3"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+
+                        <ImageView
+                            android:id="@+id/ivCaliente4"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="Contiene la imagen de un corte"
+                            app:srcCompat="@drawable/postreuno" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
     <Button
         android:id="@+id/btnBebidas"
         android:layout_width="140dp"
@@ -43,7 +362,7 @@
         android:id="@+id/btnMenu"
         android:layout_width="140dp"
         android:layout_height="52dp"
-        android:backgroundTint="#EEC800"
+        android:backgroundTint="#00EEC800"
         android:fontFamily="@font/fenix"
         android:text="Menú"
         android:textColor="#FFFFFF"
@@ -77,7 +396,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvCortes"
                 android:layout_width="90dp"
                 android:layout_height="33dp"
                 android:layout_marginStart="82dp"
@@ -88,7 +407,7 @@
                 android:textSize="30sp" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivbar1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="65dp"
@@ -109,7 +428,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/corte1"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="65dp"
@@ -118,7 +437,7 @@
                         app:srcCompat="@drawable/corteuno" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/corte2"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"
@@ -127,7 +446,7 @@
                         app:srcCompat="@drawable/cortedos" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/corte3"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"
@@ -136,17 +455,15 @@
                         app:srcCompat="@drawable/cortetres" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/corte4"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:contentDescription="Contiene la imagen de un corte"
                         app:srcCompat="@drawable/cortecuatro" />
-
                 </LinearLayout>
             </HorizontalScrollView>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,7 +471,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/tvHamburguesas"
                     android:layout_width="190dp"
                     android:layout_height="33dp"
                     android:layout_marginStart="82dp"
@@ -165,7 +482,7 @@
                     android:textSize="30sp" />
 
                 <ImageView
-                    android:id="@+id/imageView7"
+                    android:id="@+id/ivBar2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="65dp"
@@ -186,7 +503,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView8"
+                            android:id="@+id/ivHamburguesa1"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="65dp"
@@ -195,7 +512,7 @@
                             app:srcCompat="@drawable/hamburguesa" />
 
                         <ImageView
-                            android:id="@+id/imageView9"
+                            android:id="@+id/ivHamburguesa2"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -204,7 +521,7 @@
                             app:srcCompat="@drawable/hamburguestres" />
 
                         <ImageView
-                            android:id="@+id/imageView10"
+                            android:id="@+id/ivHamburguesa3"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -213,7 +530,7 @@
                             app:srcCompat="@drawable/hamburguesacuatro" />
 
                         <ImageView
-                            android:id="@+id/imageView11"
+                            android:id="@+id/ivHamburguesa4"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -224,14 +541,13 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tvPastas"
                     android:layout_width="190dp"
                     android:layout_height="33dp"
                     android:layout_marginStart="82dp"
@@ -242,7 +558,7 @@
                     android:textSize="30sp" />
 
                 <ImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/ivBar3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="65dp"
@@ -263,7 +579,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView13"
+                            android:id="@+id/ivPasta1"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="65dp"
@@ -272,7 +588,7 @@
                             app:srcCompat="@drawable/pastauno" />
 
                         <ImageView
-                            android:id="@+id/imageView14"
+                            android:id="@+id/ivPasta2"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -281,7 +597,7 @@
                             app:srcCompat="@drawable/pastados" />
 
                         <ImageView
-                            android:id="@+id/imageView15"
+                            android:id="@+id/ivPasta3"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -290,7 +606,7 @@
                             app:srcCompat="@drawable/pastatres" />
 
                         <ImageView
-                            android:id="@+id/imageView16"
+                            android:id="@+id/ivPasta4"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -302,14 +618,13 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/tvPostres"
                     android:layout_width="190dp"
                     android:layout_height="33dp"
                     android:layout_marginStart="82dp"
@@ -320,7 +635,7 @@
                     android:textSize="30sp" />
 
                 <ImageView
-                    android:id="@+id/imageView21"
+                    android:id="@+id/ivBar4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="65dp"
@@ -341,7 +656,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/iv"
+                            android:id="@+id/ivPostre1"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="65dp"
@@ -350,7 +665,7 @@
                             app:srcCompat="@drawable/postreuno" />
 
                         <ImageView
-                            android:id="@+id/imageView23"
+                            android:id="@+id/ivPostre2"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -359,7 +674,7 @@
                             app:srcCompat="@drawable/postreuno" />
 
                         <ImageView
-                            android:id="@+id/imageView24"
+                            android:id="@+id/ivPostre3"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -368,7 +683,7 @@
                             app:srcCompat="@drawable/postreuno" />
 
                         <ImageView
-                            android:id="@+id/imageView25"
+                            android:id="@+id/ivPostre4"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="20dp"
@@ -378,7 +693,6 @@
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>
