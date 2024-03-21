@@ -64,7 +64,7 @@
                         android:layout_marginStart="65dp"
                         android:layout_marginTop="15dp"
                         android:contentDescription="Contiene la imagen de un corte"
-                        app:srcCompat="@drawable/corteuno" />
+                        app:srcCompat="@drawable/coca" />
 
                     <ImageView
                         android:id="@+id/gaseosa2"
@@ -73,7 +73,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:contentDescription="Contiene la imagen de un corte"
-                        app:srcCompat="@drawable/cortedos" />
+                        app:srcCompat="@drawable/coca" />
 
                     <ImageView
                         android:id="@+id/gaseosa3"
@@ -82,7 +82,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:contentDescription="Contiene la imagen de un corte"
-                        app:srcCompat="@drawable/cortetres" />
+                        app:srcCompat="@drawable/coca" />
 
                     <ImageView
                         android:id="@+id/gaseosa4"
@@ -91,7 +91,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:contentDescription="Contiene la imagen de un corte"
-                        app:srcCompat="@drawable/cortecuatro" />
+                        app:srcCompat="@drawable/coca" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -139,7 +139,7 @@
                             android:layout_marginStart="65dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/hamburguesa" />
+                            app:srcCompat="@drawable/natural" />
 
                         <ImageView
                             android:id="@+id/ivNaturales2"
@@ -148,7 +148,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/hamburguestres" />
+                            app:srcCompat="@drawable/natural" />
 
                         <ImageView
                             android:id="@+id/ivNaturales3"
@@ -157,7 +157,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/hamburguesacuatro" />
+                            app:srcCompat="@drawable/natural" />
 
                         <ImageView
                             android:id="@+id/ivNaturales4"
@@ -166,7 +166,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/hamburguesacinco" />
+                            app:srcCompat="@drawable/natural" />
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
@@ -215,7 +215,7 @@
                             android:layout_marginStart="65dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/pastauno" />
+                            app:srcCompat="@drawable/imperial" />
 
                         <ImageView
                             android:id="@+id/ivCerveza2"
@@ -224,7 +224,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/pastados" />
+                            app:srcCompat="@drawable/imperial" />
 
                         <ImageView
                             android:id="@+id/ivCerveza3"
@@ -233,7 +233,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/pastatres" />
+                            app:srcCompat="@drawable/imperial" />
 
                         <ImageView
                             android:id="@+id/ivCerveza4"
@@ -242,7 +242,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/pastatres" />
+                            app:srcCompat="@drawable/imperial" />
 
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -272,6 +272,10 @@
                     android:layout_marginTop="-34dp"
                     app:srcCompat="@drawable/vectorvertical" />
 
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
                 <HorizontalScrollView
                     android:layout_width="400dp"
                     android:layout_height="150dp"
@@ -292,7 +296,7 @@
                             android:layout_marginStart="65dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/postreuno" />
+                            app:srcCompat="@drawable/te" />
 
                         <ImageView
                             android:id="@+id/ivCaliente2"
@@ -301,7 +305,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/postreuno" />
+                            app:srcCompat="@drawable/te" />
 
                         <ImageView
                             android:id="@+id/ivCaliente3"
@@ -310,7 +314,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/postreuno" />
+                            app:srcCompat="@drawable/te" />
 
                         <ImageView
                             android:id="@+id/ivCaliente4"
@@ -319,7 +323,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:contentDescription="Contiene la imagen de un corte"
-                            app:srcCompat="@drawable/postreuno" />
+                            app:srcCompat="@drawable/te" />
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
@@ -428,7 +432,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/corte1"
+                        android:id="@+id/ivCorte1"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="65dp"
@@ -437,7 +441,7 @@
                         app:srcCompat="@drawable/corteuno" />
 
                     <ImageView
-                        android:id="@+id/corte2"
+                        android:id="@+id/ivCorte2"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"
@@ -446,7 +450,7 @@
                         app:srcCompat="@drawable/cortedos" />
 
                     <ImageView
-                        android:id="@+id/corte3"
+                        android:id="@+id/ivCorte3"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"
@@ -455,7 +459,7 @@
                         app:srcCompat="@drawable/cortetres" />
 
                     <ImageView
-                        android:id="@+id/corte4"
+                        android:id="@+id/ivCorte4"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginStart="20dp"

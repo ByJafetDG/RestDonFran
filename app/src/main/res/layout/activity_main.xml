@@ -123,7 +123,7 @@
         app:layout_constraintVertical_bias="0.304" />
 
     <ImageView
-        android:id="@+id/whatsapp"
+        android:id="@+id/ivWhatsapp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +135,7 @@
         app:srcCompat="@drawable/whatsapp" />
 
     <ImageView
-        android:id="@+id/instagram"
+        android:id="@+id/ivInstagram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +147,7 @@
         app:srcCompat="@drawable/instagram" />
 
     <ImageView
-        android:id="@+id/facebook"
+        android:id="@+id/ivFacebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

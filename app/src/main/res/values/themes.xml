@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.DonFranRestaurant" parent="Base.Theme.DonFranRestaurant" />
+
+    <style name="SplashTheme" parent="Base.Theme.DonFranRestaurant">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 </resources>

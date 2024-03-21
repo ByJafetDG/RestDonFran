@@ -6,7 +6,36 @@
     android:background="#0F151B">
 
     <ImageView
-        android:id="@+id/whatsapp"
+        android:id="@+id/ivGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.817"
+        app:srcCompat="@drawable/google" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="258dp"
+        android:layout_height="53dp"
+        android:backgroundTint="#EEC800"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.299" />
+
+    <ImageView
+        android:id="@+id/ivWhatsapp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +47,7 @@
         app:srcCompat="@drawable/whatsapp" />
 
     <ImageView
-        android:id="@+id/instagram"
+        android:id="@+id/ivInstagram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +59,7 @@
         app:srcCompat="@drawable/instagram" />
 
     <ImageView
-        android:id="@+id/facebook"
+        android:id="@+id/ivFacebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,45 +69,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.901"
         app:srcCompat="@drawable/facebook" />
-
-    <ImageView
-        android:id="@+id/vectorRight"
-        android:layout_width="121dp"
-        android:layout_height="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.758"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606"
-        app:srcCompat="@drawable/vector" />
-
-    <TextView
-        android:id="@+id/o"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fenix"
-        android:text="O"
-        android:textColor="#EEC800"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602" />
-
-    <ImageView
-        android:id="@+id/vectorLeft"
-        android:layout_width="121dp"
-        android:layout_height="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606"
-        app:srcCompat="@drawable/vector" />
 
     <ImageView
         android:id="@+id/logo"
@@ -92,23 +82,6 @@
         app:srcCompat="@drawable/donfranremovebg" />
 
     <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="258dp"
-        android:layout_height="53dp"
-        android:backgroundTint="#EEC800"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="text"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
-
-    <EditText
         android:id="@+id/etPass"
         android:layout_width="258dp"
         android:layout_height="53dp"
@@ -120,27 +93,65 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnLoginL"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:backgroundTint="#EEC800"
+    <TextView
+        android:id="@+id/o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/fenix"
-        android:text="Iniciar sesión"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        app:cornerRadius="1dp"
+        android:text="O"
+        android:textColor="#EEC800"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintVertical_bias="0.669" />
+
+    <ImageView
+        android:id="@+id/vectorLeft"
+        android:layout_width="121dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.675"
+        app:srcCompat="@drawable/vector" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="258dp"
+        android:layout_height="53dp"
+        android:backgroundTint="#EEC800"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
+
+    <ImageView
+        android:id="@+id/vectorRight"
+        android:layout_width="121dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.675"
+        app:srcCompat="@drawable/vector" />
 
     <Button
         android:id="@+id/btnVolver"
@@ -154,9 +165,26 @@
         app:cornerRadius="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.747" />
+
+    <Button
+        android:id="@+id/btnLoginL"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#EEC800"
+        android:fontFamily="@font/fenix"
+        android:text="Iniciar sesión"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintVertical_bias="0.611" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
