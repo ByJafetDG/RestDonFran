@@ -10,15 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,14 +42,40 @@ public class MenuActivity extends AppCompatActivity {
         ImageView ivCorte3 = findViewById(R.id.ivCorte3);
         ImageView ivCorte4 = findViewById(R.id.ivCorte4);
 
+        ImageView ivHamburguesa1 = findViewById(R.id.ivHamburguesa1);
         ImageView ivHamburguesa2 = findViewById(R.id.ivHamburguesa2);
+        ImageView ivHamburguesa3 = findViewById(R.id.ivHamburguesa3);
+        ImageView ivHamburguesa4 = findViewById(R.id.ivHamburguesa4);
 
-        ProductData.setOnClickListenerForProduct(this, ivCorte1, "Filet de pollo");
-        ProductData.setOnClickListenerForProduct(this, ivCorte2, "Filete Mignon");
-        ProductData.setOnClickListenerForProduct(this, ivCorte3, "Lomito");
-        ProductData.setOnClickListenerForProduct(this, ivCorte4, "Filet de pollo y res");
+        ImageView ivPasta1 = findViewById(R.id.ivPasta1);
+        ImageView ivPasta2 = findViewById(R.id.ivPasta2);
+        ImageView ivPasta3 = findViewById(R.id.ivPasta3);
+        ImageView ivPasta4 = findViewById(R.id.ivPasta4);
 
+        ImageView ivPostre1 = findViewById(R.id.ivPostre1);
+        ImageView ivPostre2 = findViewById(R.id.ivPostre2);
+        ImageView ivPostre3 = findViewById(R.id.ivPostre3);
+        ImageView ivPostre4 = findViewById(R.id.ivPostre4);
+
+        ProductData.setOnClickListenerForProductCortes(this, ivCorte1, "Filet de pollo");
+        ProductData.setOnClickListenerForProductCortes(this, ivCorte2, "Filete Mignon");
+        ProductData.setOnClickListenerForProductCortes(this, ivCorte3, "Lomito");
+        ProductData.setOnClickListenerForProductCortes(this, ivCorte4, "Filet de pollo y res");
+
+        ProductData.setOnClickListenerForProductHamburguer(this, ivHamburguesa1, "Hamburguesa sencilla");
         ProductData.setOnClickListenerForProductHamburguer(this, ivHamburguesa2, "Hamburguesa de pollo");
+        ProductData.setOnClickListenerForProductHamburguer(this, ivHamburguesa3, "Hamburguesa vaquera");
+        ProductData.setOnClickListenerForProductHamburguer(this, ivHamburguesa4, "Hamburguesa vaquera");
+
+        ProductData.setOnClickListenerForProductPastas(this, ivPasta1, "Pasta con camarones en salsa");
+        ProductData.setOnClickListenerForProductPastas(this, ivPasta2, "Pasta con camarones en salsa blanca");
+        ProductData.setOnClickListenerForProductPastas(this, ivPasta3, "Pasta con camarones y pollo");
+        ProductData.setOnClickListenerForProductPastas(this, ivPasta4, "Pasta con camarones y pollo");
+
+        ProductData.setOnClickListenerForProductPostres(this, ivPostre1, "Pie de manzana");
+        ProductData.setOnClickListenerForProductPostres(this, ivPostre2, "Pie de manzana");
+        ProductData.setOnClickListenerForProductPostres(this, ivPostre3, "Pie de manzana");
+        ProductData.setOnClickListenerForProductPostres(this, ivPostre4, "Pie de manzana");
 
         btnMenu.setBackgroundColor(Color.parseColor("#EEC800"));
 
