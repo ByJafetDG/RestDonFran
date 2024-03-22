@@ -116,7 +116,7 @@
         android:backgroundTint="#EEC800"
         android:ems="10"
         android:hint="Email"
-        android:inputType="text|textEmailAddress|textAutoComplete|textCapCharacters|textCapSentences"
+        android:inputType="text|textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

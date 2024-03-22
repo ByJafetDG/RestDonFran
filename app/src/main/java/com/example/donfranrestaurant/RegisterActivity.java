@@ -14,15 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.donfranrestaurant.socialmedia.SendEmail;
 import com.example.donfranrestaurant.socialmedia.SocialMedia;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,9 +29,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,10 +37,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    public enum AuthMethod {
-        EMAIL_PASSWORD,
-        GOOGLE
-    }
+
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -112,18 +104,17 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         /*-------------------------FIREBASE FIRESTONE-------------------------*/
-        // Dentro del onClickListener para el botón de registro
         btnRegisterR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtén el correo electrónico y la contraseña ingresados por el usuario
-                String username = etUsername.getText().toString().trim();
+                // Obtén el correo electrónico, contraseña y nombre de usuario ingresados por el usuario
                 String email = etEmail.getText().toString().trim();
                 String password = etPass.getText().toString().trim();
+                String username = etUsername.getText().toString().trim();
 
-                // Verifica si el correo electrónico o la contraseña están vacíos
+                // Verifica si el correo electrónico, contraseña o nombre de usuario están vacíos
                 if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
-                    // Si están vacíos, muestra un Toast indicando que se deben completar ambos campos
+                    // Si están vacíos, muestra un Toast indicando que se deben completar todos los campos
                     Toast.makeText(RegisterActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -135,59 +126,49 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Realiza una consulta para verificar si el correo electrónico ya está registrado
-                db.collection("users")
-                        .whereEqualTo("email", email)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                // Registrar al usuario con correo electrónico y contraseña en Firebase Authentication
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    if (!task.getResult().isEmpty()) {
-                                        // Si la consulta devuelve resultados, significa que el correo electrónico ya está registrado
-                                        Toast.makeText(RegisterActivity.this, "El correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        // Si no hay resultados, el correo electrónico no está registrado y puedes agregar el nuevo usuario
-                                        // Create a new user
-                                        Map<String, Object> user = new HashMap<>();
-                                        user.put("username", username);
-                                        user.put("email", email);
-                                        user.put("pass", password);
+                                    // El registro fue exitoso
+                                    FirebaseUser user = mAuth.getCurrentUser();
 
-                                        // Add a new document with a generated ID
-                                        db.collection("users")
-                                                .add(user)
-                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                    @Override
-                                                    public void onSuccess(DocumentReference documentReference) {
-                                                        // Si se añade correctamente, muestra un Toast indicando el éxito
-                                                        Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
-                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        // Si falla, muestra un Toast indicando el error
-                                                        Toast.makeText(RegisterActivity.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
-                                                        Log.w(TAG, "Error adding document", e);
-                                                    }
-                                                });
-                                    }
+                                    // Guardar el nombre de usuario en Firestore
+                                    Map<String, Object> userData = new HashMap<>();
+                                    userData.put("username", username);
+                                    userData.put("email", email);
+                                    db.collection("users").document(user.getUid()).set(userData)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // El nombre de usuario se guardó correctamente en Firestore
+                                                    Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Error al guardar el nombre de usuario en Firestore
+                                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                 } else {
-                                    // Error al realizar la consulta
-                                    Toast.makeText(RegisterActivity.this, "Error al verificar el correo electrónico", Toast.LENGTH_SHORT).show();
-                                    Log.w(TAG, "Error getting documents.", task.getException());
+                                    // El registro falló, muestra un mensaje de error
+                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
 
                 // Limpiar campos después del registro
-                etUsername.setText("");
                 etEmail.setText("");
                 etPass.setText("");
+                etUsername.setText("");
             }
         });
+
+
 
         /*-------------------------/FIREBASE-FIRESTONE/-------------------------*/
     }
@@ -230,8 +211,29 @@ public class RegisterActivity extends AppCompatActivity {
                             // Autenticación con Firebase exitosa, el usuario se registró correctamente
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // Puedes agregar código adicional aquí, como guardar información adicional del usuario en Firestore
-                            Toast.makeText(RegisterActivity.this, "Authentication success.", Toast.LENGTH_SHORT).show();
+
+                            // Generar un nombre de usuario único utilizando el nombre de correo electrónico
+                            String username = generateUniqueUsernameFromEmail(user.getEmail());
+
+                            // Guardar el nombre de usuario en Firestore
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("username", username);
+                            userData.put("email", user.getEmail());
+                            db.collection("users").document(user.getUid()).set(userData)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // El nombre de usuario se guardó correctamente en Firestore
+                                            Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Error al guardar el nombre de usuario en Firestore
+                                            Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
                             // La autenticación con Firebase falló
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -239,6 +241,12 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private String generateUniqueUsernameFromEmail(String email) {
+        // Generar un nombre de usuario único utilizando el nombre de correo electrónico
+        String username = email.split("@")[0]; // Obtener la parte del correo electrónico antes del símbolo @
+        return username;
     }
 
 

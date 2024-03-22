@@ -3,22 +3,44 @@ package com.example.donfranrestaurant;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProductoActivity extends AppCompatActivity {
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
+
+        // Inicializar FirebaseFirestore
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        Button btnOrdenar = findViewById(R.id.btnOrdenar);
+        EditText etNumMesa = findViewById(R.id.etNumMesa);
+
 
         ImageView ivStar1Fill = findViewById(R.id.ivStarFill1);
         ImageView ivStar2Fill = findViewById(R.id.ivStarFill2);
@@ -47,6 +69,108 @@ public class ProductoActivity extends AppCompatActivity {
         String stars = getIntent().getStringExtra("stars");
         String url = getIntent().getStringExtra("url");
 
+        btnOrdenar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String nombreProducto = tvNombreProducto.getText().toString();
+                final String precioProducto = tvPrecio.getText().toString();
+                final String numMesa = etNumMesa.getText().toString();
+
+                // Verificar si el campo "Número de Mesa" no está vacío
+                if (numMesa.isEmpty()) {
+                    // Mostrar un mensaje de error si el campo está vacío
+                    Toast.makeText(ProductoActivity.this, "Por favor ingrese el número de mesa", Toast.LENGTH_SHORT).show();
+                    return; // Salir del método onClick sin realizar más acciones
+                }
+
+                btnOrdenar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String nombreProducto = tvNombreProducto.getText().toString();
+                        final String precioProducto = tvPrecio.getText().toString();
+                        final String numMesa = etNumMesa.getText().toString();
+
+                        // Obtener el usuario actualmente autenticado
+                        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                        // Verificar si hay un usuario autenticado
+                        if (currentUser != null) {
+                            Log.d("ProductoActivity", "Usuario actualmente autenticado: " + currentUser.getEmail());
+                            // Obtener el nombre de usuario asociado al correo electrónico
+                            String email = currentUser.getEmail();
+                            if (email != null && !email.isEmpty()) {
+                                // Buscar el nombre de usuario en Firestore
+                                db.collection("users")
+                                        .whereEqualTo("email", email)
+                                        .get()
+                                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                                            if (!queryDocumentSnapshots.isEmpty()) {
+                                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                                    String username = document.getString("username");
+                                                    if (username != null && !username.isEmpty()) {
+                                                        // Utilizar el nombre de usuario obtenido de Firestore
+                                                        sendOrder(nombreProducto, precioProducto, numMesa, username);
+                                                        return; // Salir del bucle después de encontrar el nombre de usuario
+                                                    }
+                                                }
+                                            } else {
+                                                Toast.makeText(ProductoActivity.this, "No se encontró el nombre de usuario asociado al correo electrónico", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(ProductoActivity.this, "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
+                                            e.printStackTrace();
+                                        });
+                            }
+                        } else {
+                            // Si no hay usuario autenticado, mostrar un mensaje de error o redirigir al usuario a la pantalla de inicio de sesión
+                            Log.d("ProductoActivity", "Usuario no autenticado");
+                            Toast.makeText(ProductoActivity.this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+                            // Puedes agregar aquí la lógica para redirigir al usuario según tu aplicación
+                        }
+                    }
+                });
+
+                // Obtener el usuario actualmente autenticado
+                final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                // Verificar si hay un usuario autenticado
+                if (currentUser != null) {
+                    Log.d("ProductoActivity", "Usuario actualmente autenticado: " + currentUser.getEmail());
+                    // Obtener el nombre de usuario asociado al correo electrónico
+                    String email = currentUser.getEmail();
+                    if (email != null && !email.isEmpty()) {
+                        // Buscar el nombre de usuario en Firestore
+                        db.collection("users")
+                                .whereEqualTo("email", email)
+                                .get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                            String username = document.getString("username");
+                                            if (username != null && !username.isEmpty()) {
+                                                // Utilizar el nombre de usuario obtenido de Firestore
+                                                sendOrder(nombreProducto, precioProducto, numMesa, username);
+                                                return; // Salir del bucle después de encontrar el nombre de usuario
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(ProductoActivity.this, "No se encontró el nombre de usuario asociado al correo electrónico", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(ProductoActivity.this, "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                });
+                    }
+                } else {
+                    // Si no hay usuario autenticado, mostrar un mensaje de error o redirigir al usuario a la pantalla de inicio de sesión
+                    Log.d("ProductoActivity", "Usuario no autenticado");
+                    Toast.makeText(ProductoActivity.this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+                    // Puedes agregar aquí la lógica para redirigir al usuario según tu aplicación
+                }
+            }
+        });
 
         if (stars.equals("1")){
             ivStar1Fill.setVisibility(View.VISIBLE);
@@ -111,5 +235,30 @@ public class ProductoActivity extends AppCompatActivity {
 
 
     }
+
+    private void sendOrder(String nombre, String precio, String numMesa, String usuario) {
+        Log.d("ProductoActivity", "sendOrder: Enviando pedido...");
+
+        // Crear un mapa con los datos del pedido
+        Map<String, Object> order = new HashMap<>();
+        order.put("nombre", nombre);
+        order.put("precio", precio);
+        order.put("numMesa", numMesa);
+        order.put("usuario", usuario);
+
+        Log.d("ProductoActivity", "sendOrder: Datos del pedido: " + order.toString());
+
+        // Añadir los datos a la colección "orders" en Firestore
+        db.collection("orders").add(order)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("ProductoActivity", "sendOrder: Pedido enviado correctamente");
+                    Toast.makeText(ProductoActivity.this, "Pedido enviado correctamente", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("ProductoActivity", "sendOrder: Error al enviar pedido", e);
+                    Toast.makeText(ProductoActivity.this, "Error al enviar pedido", Toast.LENGTH_SHORT).show();
+                });
+    }
+
 
 }

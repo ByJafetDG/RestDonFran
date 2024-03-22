@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
+    private SharedPreferences sharedPreferences;
     // Declaramos un SparseArray para mapear los IDs de ImageView a los títulos de productos
     private SparseArray<String> imageViewTitles = new SparseArray<>();
     private FirebaseFirestore firestore;
@@ -30,6 +31,16 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        // Verificar si el usuario ha iniciado sesión previamente
+        sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
+        if (!sharedPreferences.getBoolean("loggedIn", false)) {
+            // Si el usuario no ha iniciado sesión, redirigirlo a LoginActivity
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -170,11 +181,10 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

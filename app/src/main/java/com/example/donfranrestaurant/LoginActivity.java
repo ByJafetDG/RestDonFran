@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.donfranrestaurant.socialmedia.SocialMedia;
@@ -28,16 +27,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //Se utiliza para guardar la sesión de autenticación del usuario, para que no tenga que acceder nuevamente sus datos
+    private FirebaseFirestore db;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -46,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
 
         Button btnLoginL = findViewById(R.id.btnLoginL);
         Button btnVolver = findViewById(R.id.btnVolver);
@@ -61,31 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         ImageView ivWhatsapp = findViewById(R.id.ivWhatsapp);
 
         sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
-        // Verifica si el usuario ya ha iniciado sesión previamente
+
         if (sharedPreferences.getBoolean("loggedIn", false)) {
-            // Si el usuario ya ha iniciado sesión, lo redirige directamente a la actividad MenuActivity
-            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-            startActivity(intent);
-            finish(); // Finaliza la actividad actual
+            navigateToMenuActivity();
         }
 
         ivGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Configura las opciones de inicio de sesión con Google
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
-
-                // Construye un cliente de inicio de sesión con Google
-                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
-
-                // Inicia la actividad de inicio de sesión con Google
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+                startGoogleSignIn();
             }
         });
+
+        // Other social media click listeners
         ivFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,77 +91,102 @@ public class LoginActivity extends AppCompatActivity {
                 SocialMedia.openWhatsAppChat(LoginActivity.this, "+50671082151");
             }
         });
+
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(register);
-                finish();
+                navigateToMainActivity();
             }
         });
-        // Dentro del onClickListener para el botón de inicio de sesión
+
         btnLoginL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etUsername.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
                 String password = etPass.getText().toString().trim();
+                String username = etUsername.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+                    showToast("Por favor, completa todos los campos");
                     return;
                 }
 
-                db.collection("users")
-                        .whereEqualTo("username", username)
-                        .whereEqualTo("email", email)
-                        .whereEqualTo("pass", password)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    if (!task.getResult().isEmpty()) {
-                                        Log.d(TAG, "Inicio de sesión exitoso");
-                                        Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                if (!isValidEmail(email)) {
+                    showToast("Correo electrónico no válido");
+                    return;
+                }
 
-                                        // Almacena el estado de inicio de sesión del usuario en SharedPreferences
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putBoolean("loggedIn", true);
-                                        editor.apply();
-
-                                        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Log.w(TAG, "Credenciales inválidas");
-                                        Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Log.w(TAG, "Error al buscar usuario", task.getException());
-                                }
-                            }
-                        });
+                loginWithEmailPassword(email, password, username);
             }
         });
     }
 
+    private void startGoogleSignIn() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void loginWithEmailPassword(String email, String password, String username) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            saveLoggedInState();
+                            navigateToMenuActivity();
+                        } else {
+                            showToast("Credenciales incorrectas o cuenta no registrada");
+                        }
+                    }
+                });
+    }
+
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToMenuActivity() {
+        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void saveLoggedInState() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("loggedIn", true);
+        editor.apply();
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Verifica si el resultado corresponde al inicio de sesión con Google
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // El inicio de sesión con Google fue exitoso, autentica con Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                // El inicio de sesión con Google falló, muestra un mensaje de error
                 Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(LoginActivity.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
+                showToast("Google sign in failed");
             }
         }
     }
@@ -186,29 +198,14 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Autenticación con Firebase exitosa, el usuario se registró correctamente
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            // Guarda el estado de inicio de sesión del usuario en SharedPreferences
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean("loggedIn", true);
-                            editor.apply();
-
-                            // Muestra un Toast indicando que el inicio de sesión fue exitoso
-                            Toast.makeText(LoginActivity.this, "Inicio de sesión con Google exitoso", Toast.LENGTH_SHORT).show();
-
-                            // Redirige al usuario a MenuActivity
-                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                            startActivity(intent);
-                            finish();
+                            saveLoggedInState();
+                            showToast("Inicio de sesión con Google exitoso");
+                            navigateToMenuActivity();
                         } else {
-                            // La autenticación con Firebase falló
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            showToast("Error al iniciar sesión con Google");
                         }
                     }
                 });
     }
-
 }
+
