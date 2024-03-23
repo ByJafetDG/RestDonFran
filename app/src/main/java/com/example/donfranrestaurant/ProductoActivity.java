@@ -2,6 +2,8 @@ package com.example.donfranrestaurant;
 
 import android.content.Intent;
 
+import java.util.UUID;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -75,6 +77,9 @@ public class ProductoActivity extends AppCompatActivity {
                 final String nombreProducto = tvNombreProducto.getText().toString();
                 final String precioProducto = tvPrecio.getText().toString();
                 final String numMesa = etNumMesa.getText().toString();
+
+                // Generar un UUID único para la orden
+                String orderId = UUID.randomUUID().toString();
 
                 // Verificar si el campo "Número de Mesa" no está vacío
                 if (numMesa.isEmpty()) {
@@ -239,8 +244,12 @@ public class ProductoActivity extends AppCompatActivity {
     private void sendOrder(String nombre, String precio, String numMesa, String usuario) {
         Log.d("ProductoActivity", "sendOrder: Enviando pedido...");
 
+        // Generar un UUID único para la orden
+        String orderId = UUID.randomUUID().toString();
+
         // Crear un mapa con los datos del pedido
         Map<String, Object> order = new HashMap<>();
+        order.put("idpedido", orderId); // Agregar el ID único al mapa
         order.put("nombre", nombre);
         order.put("precio", precio);
         order.put("numMesa", numMesa);
@@ -259,6 +268,7 @@ public class ProductoActivity extends AppCompatActivity {
                     Toast.makeText(ProductoActivity.this, "Error al enviar pedido", Toast.LENGTH_SHORT).show();
                 });
     }
+
 
 
 }
