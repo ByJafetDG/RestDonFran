@@ -4,6 +4,5 @@
     <item>
         <bitmap android:src="@drawable/bannerdonfranrbgdos"
             android:gravity="center"/>
-
     </item>
 </layer-list>

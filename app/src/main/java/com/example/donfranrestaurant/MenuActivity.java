@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 
-
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +27,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     // Declaramos un SparseArray para mapear los IDs de ImageView a los títulos de productos
-    private SparseArray<String> imageViewTitles = new SparseArray<>();
     private FirebaseFirestore firestore;
 
     @Override
@@ -55,56 +57,16 @@ public class MenuActivity extends AppCompatActivity {
         ImageView ivBack = findViewById(R.id.ivBack);
         ImageView ivHome = findViewById(R.id.ivHome);
 
-        // Llenamos el SparseArray con los IDs de ImageView y los títulos correspondientes
-        imageViewTitles.put(R.id.ivCorte1, "Filet de pollo");
-        imageViewTitles.put(R.id.ivCorte2, "Filete Mignon");
-        imageViewTitles.put(R.id.ivCorte3, "Lomito");
-        imageViewTitles.put(R.id.ivCorte4, "Filet de pollo y res");
-
-        imageViewTitles.put(R.id.ivHamburguesa1, "Hamburguesa sencilla");
-        imageViewTitles.put(R.id.ivHamburguesa2, "Hamburguesa de pollo");
-        imageViewTitles.put(R.id.ivHamburguesa3, "Hamburguesa vaquera");
-        imageViewTitles.put(R.id.ivHamburguesa4, "Hamburguesa vaquera");
-
-        imageViewTitles.put(R.id.ivPasta1, "Pasta con camarones en salsa");
-        imageViewTitles.put(R.id.ivPasta2, "Pasta con camarones en salsa blanca");
-        imageViewTitles.put(R.id.ivPasta3, "Pasta con camarones y pollo");
-        imageViewTitles.put(R.id.ivPasta4, "Pasta con camarones y pollo");
-
-        imageViewTitles.put(R.id.ivPostre1, "Pie de manzana");
-        imageViewTitles.put(R.id.ivPostre2, "Pie de manzana");
-        imageViewTitles.put(R.id.ivPostre3, "Pie de manzana");
-        imageViewTitles.put(R.id.ivPostre4, "Pie de manzana");
-
-        imageViewTitles.put(R.id.ivGaseosa1, "Coca cola");
-        imageViewTitles.put(R.id.ivGaseosa2, "Coca cola");
-        imageViewTitles.put(R.id.ivGaseosa3, "Coca cola");
-        imageViewTitles.put(R.id.ivGaseosa4, "Coca cola");
-
-        imageViewTitles.put(R.id.ivCerveza1, "Imperial cero");
-        imageViewTitles.put(R.id.ivCerveza2, "Imperial cero");
-        imageViewTitles.put(R.id.ivCerveza3, "Imperial cero");
-        imageViewTitles.put(R.id.ivCerveza4, "Imperial cero");
-
-        imageViewTitles.put(R.id.ivNaturales1, "Toronja rosa");
-        imageViewTitles.put(R.id.ivNaturales2, "Toronja rosa");
-        imageViewTitles.put(R.id.ivNaturales3, "Toronja rosa");
-        imageViewTitles.put(R.id.ivNaturales4, "Toronja rosa");
-
-        imageViewTitles.put(R.id.ivCaliente1, "Té de limón");
-        imageViewTitles.put(R.id.ivCaliente2, "Té de limón");
-        imageViewTitles.put(R.id.ivCaliente3, "Té de limón");
-        imageViewTitles.put(R.id.ivCaliente4, "Té de limón");
-
-        // Set onClickListeners para productos de cada categoría
-        setProductListeners("cortes", R.id.ivCorte1, R.id.ivCorte2, R.id.ivCorte3, R.id.ivCorte4);
-        setProductListeners("hamburguesas", R.id.ivHamburguesa1, R.id.ivHamburguesa2, R.id.ivHamburguesa3, R.id.ivHamburguesa4);
-        setProductListeners("pastas", R.id.ivPasta1, R.id.ivPasta2, R.id.ivPasta3, R.id.ivPasta4);
-        setProductListeners("postres", R.id.ivPostre1, R.id.ivPostre2, R.id.ivPostre3, R.id.ivPostre4);
-        setProductListeners("gaseosas", R.id.ivGaseosa1, R.id.ivGaseosa2, R.id.ivGaseosa3, R.id.ivGaseosa4);
-        setProductListeners("cervezas", R.id.ivCerveza1, R.id.ivCerveza2, R.id.ivCerveza3, R.id.ivCerveza4);
-        setProductListeners("naturales", R.id.ivNaturales1, R.id.ivNaturales2, R.id.ivNaturales3, R.id.ivNaturales4);
-        setProductListeners("calientes", R.id.ivCaliente1, R.id.ivCaliente2, R.id.ivCaliente3, R.id.ivCaliente4);
+        // Aquí llamamos a un método para cargar las imágenes dinámicamente en cada contenedor
+        loadImagesFromFirestore("entradas", R.id.linearlayoutEntradas);
+        loadImagesFromFirestore("cortes", R.id.linearlayoutCortes);
+        loadImagesFromFirestore("hamburguesas", R.id.linearlayoutHamburguesas);
+        loadImagesFromFirestore("pastas", R.id.linearlayoutPastas);
+        loadImagesFromFirestore("postres", R.id.linearlayoutPostres);
+        loadImagesFromFirestore("gaseosas", R.id.linearlayoutGaseosas);
+        loadImagesFromFirestore("cervezas", R.id.linearlayoutCervezas);
+        loadImagesFromFirestore("naturales", R.id.linearlayoutNaturales);
+        loadImagesFromFirestore("calientes", R.id.linearlayoutCalientes);
 
         btnBebidas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,18 +111,45 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    private void setProductListeners(String collectionName, int... imageViewsIds) {
-        for (int imageViewId : imageViewsIds) {
-            ImageView imageView = findViewById(imageViewId);
-            ProductData.setOnClickListenerForProduct(this, imageView, getProductTitle(imageViewId), collectionName);
-        }
-    }
+    private void loadImagesFromFirestore(String collectionName, int linearLayoutId) {
+        LinearLayout linearLayout = findViewById(linearLayoutId);
+        firestore.collection(collectionName).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    String imageUrl = document.getString("url");
+                    if (imageUrl != null) {
+                        // Creamos un ImageView para mostrar la imagen
+                        ImageView imageView = new ImageView(MenuActivity.this);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
+                        layoutParams.setMargins(65, 15, 0, 0);
+                        imageView.setLayoutParams(layoutParams);
+                        // Cargamos la imagen utilizando Picasso
+                        Picasso.get().load(imageUrl).into(imageView);
+                        // Hacemos el ImageView clickeable y enviamos los datos del producto a ProductoActivity
+                        imageView.setOnClickListener(view -> {
+                            String productName = document.getString("nombre");
+                            String productDescription = document.getString("descripcion");
+                            String productPrice = document.getString("precio");
+                            String productStars = document.getString("stars");
+                            // Aquí enviamos los datos a ProductoActivity
+                            Intent intent = new Intent(MenuActivity.this, ProductoActivity.class);
+                            intent.putExtra("nombre", productName);
+                            intent.putExtra("descripcion", productDescription);
+                            intent.putExtra("precio", productPrice);
+                            intent.putExtra("stars", productStars);
+                            intent.putExtra("url", imageUrl);
+                            startActivity(intent);
 
-    private String getProductTitle(int imageViewId) {
-        // Buscamos el título correspondiente al imageViewId en el SparseArray
-        return imageViewTitles.get(imageViewId, "");
+                        });
+                        // Agregamos el ImageView al LinearLayout
+                        linearLayout.addView(imageView);
+                    }
+                }
+            } else {
+                Log.e("Firestore", "Error getting documents: ", task.getException());
+            }
+        });
     }
-
 
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
