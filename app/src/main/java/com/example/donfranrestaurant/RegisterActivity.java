@@ -160,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
                 // Limpiar campos después del registro
                 etEmail.setText("");
                 etPass.setText("");

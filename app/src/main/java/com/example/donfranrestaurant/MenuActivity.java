@@ -26,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MenuActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    // Declaramos un SparseArray para mapear los IDs de ImageView a los títulos de productos
+
     private FirebaseFirestore firestore;
 
     @Override
@@ -60,6 +60,7 @@ public class MenuActivity extends AppCompatActivity {
         // Aquí llamamos a un método para cargar las imágenes dinámicamente en cada contenedor
         loadImagesFromFirestore("entradas", R.id.linearlayoutEntradas);
         loadImagesFromFirestore("cortes", R.id.linearlayoutCortes);
+        loadImagesFromFirestore("arroces", R.id.linearlayoutArroces);
         loadImagesFromFirestore("hamburguesas", R.id.linearlayoutHamburguesas);
         loadImagesFromFirestore("pastas", R.id.linearlayoutPastas);
         loadImagesFromFirestore("postres", R.id.linearlayoutPostres);
@@ -120,7 +121,7 @@ public class MenuActivity extends AppCompatActivity {
                     if (imageUrl != null) {
                         // Creamos un ImageView para mostrar la imagen
                         ImageView imageView = new ImageView(MenuActivity.this);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(410, 520);
                         layoutParams.setMargins(65, 15, 0, 0);
                         imageView.setLayoutParams(layoutParams);
                         // Cargamos la imagen utilizando Picasso
