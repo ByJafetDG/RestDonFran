@@ -36,31 +36,40 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * La actividad RegisterActivity permite a los usuarios registrarse en la aplicación DonFranRestaurant
+ * utilizando su correo electrónico y contraseña, o iniciar sesión con sus cuentas de Google.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    /**
+     * Método llamado al crear la actividad. Configura la interfaz de usuario y define los listeners de eventos.
+     * @param savedInstanceState El estado anterior de la actividad, si lo hay.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Obtención de referencias a elementos de la interfaz de usuario
         Button btnVolver = findViewById(R.id.btnVolver);
         Button btnRegisterR = findViewById(R.id.btnRegisterR);
-
         EditText etUsername = findViewById(R.id.etUsername);
         EditText etEmail = findViewById(R.id.etEmail);
         EditText etPass = findViewById(R.id.etPass);
-
         ImageView ivGoogle = findViewById(R.id.ivGoogle);
         ImageView ivFacebook = findViewById(R.id.ivFacebook);
         ImageView ivInstagram = findViewById(R.id.ivInstagram);
         ImageView ivWhatsapp = findViewById(R.id.ivWhatsapp);
 
+        // Inicialización de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
+        // Configuración de OnClickListener para los iconos de redes sociales
         ivGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                 SocialMedia.openWhatsAppChat(RegisterActivity.this, "+50671082151");
             }
         });
+
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de OnClickListener para el botón de registro
         /*-------------------------FIREBASE FIRESTONE-------------------------*/
         btnRegisterR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,12 +177,14 @@ public class RegisterActivity extends AppCompatActivity {
                 etUsername.setText("");
             }
         });
-
-
-
         /*-------------------------/FIREBASE-FIRESTONE/-------------------------*/
     }
 
+    /**
+     * Método para verificar si un correo electrónico tiene un formato válido.
+     * @param email El correo electrónico a verificar.
+     * @return true si el correo electrónico tiene un formato válido, false de lo contrario.
+     */
     private boolean isValidEmail(String email) {
         // Expresión regular para validar un correo electrónico
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -180,7 +193,12 @@ public class RegisterActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-
+    /**
+     * Método llamado al recibir un resultado de una actividad iniciada para obtener un resultado.
+     * @param requestCode El código de solicitud original enviado a startActivityForResult().
+     * @param resultCode El código de resultado devuelto por la actividad.
+     * @param data Un Intent que lleva los datos resultantes.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -200,6 +218,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método para autenticar con Firebase utilizando las credenciales de Google.
+     * @param acct La cuenta de Google con la que se inició sesión.
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -242,11 +264,14 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Método para generar un nombre de usuario único utilizando el nombre de correo electrónico.
+     * @param email El correo electrónico del usuario.
+     * @return Un nombre de usuario único generado a partir del correo electrónico.
+     */
     private String generateUniqueUsernameFromEmail(String email) {
         // Generar un nombre de usuario único utilizando el nombre de correo electrónico
         String username = email.split("@")[0]; // Obtener la parte del correo electrónico antes del símbolo @
         return username;
     }
-
-
 }

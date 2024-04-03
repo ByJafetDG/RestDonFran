@@ -26,11 +26,18 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * La actividad ProductoActivity muestra los detalles de un producto específico y permite al usuario realizar un pedido.
+ * También gestiona la autenticación del usuario y el envío del pedido a Firestore.
+ */
 public class ProductoActivity extends AppCompatActivity {
-
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
+    /**
+     * Método llamado al crear la actividad. Configura la interfaz de usuario y define los listeners de eventos.
+     * @param savedInstanceState El estado anterior de la actividad, si lo hay.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +47,9 @@ public class ProductoActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+        // Obtención de referencias a elementos de la interfaz de usuario
         Button btnOrdenar = findViewById(R.id.btnOrdenar);
         EditText etNumMesa = findViewById(R.id.etNumMesa);
-
-
         ImageView ivStar1Fill = findViewById(R.id.ivStarFill1);
         ImageView ivStar2Fill = findViewById(R.id.ivStarFill2);
         ImageView ivStar3Fill = findViewById(R.id.ivStarFill3);
@@ -59,7 +65,6 @@ public class ProductoActivity extends AppCompatActivity {
         ImageView ivImagenProducto = findViewById(R.id.ivImagenProducto);
         ImageView ivBack = findViewById(R.id.ivBack);
         ImageView ivHome = findViewById(R.id.ivHome);
-
         TextView tvNombreProducto = findViewById(R.id.tvNombreProducto);
         TextView tvDescripcion = findViewById(R.id.tvDescripcion);
         TextView tvPrecio = findViewById(R.id.tvPrecio);
@@ -71,15 +76,13 @@ public class ProductoActivity extends AppCompatActivity {
         String stars = getIntent().getStringExtra("stars");
         String url = getIntent().getStringExtra("url");
 
+        // Configuración de OnClickListener para el botón "Ordenar"
         btnOrdenar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String nombreProducto = tvNombreProducto.getText().toString();
                 final String precioProducto = tvPrecio.getText().toString();
                 final String numMesa = etNumMesa.getText().toString();
-
-                // Generar un UUID único para la orden
-                String orderId = UUID.randomUUID().toString();
 
                 // Verificar si el campo "Número de Mesa" no está vacío
                 if (numMesa.isEmpty()) {
@@ -177,6 +180,7 @@ public class ProductoActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de visibilidad de las estrellas según la puntuación del producto
         if (stars.equals("1")){
             ivStar1Fill.setVisibility(View.VISIBLE);
         } else if (stars.equals("2")) {
@@ -209,9 +213,8 @@ public class ProductoActivity extends AppCompatActivity {
                 .into(ivImagenProducto, new Callback() {
                     @Override
                     public void onSuccess() {
-
+                        // La imagen se cargó correctamente
                     }
-
                     @Override
                     public void onError(Exception e) {
                         // Manejar errores de carga de imagen
@@ -220,6 +223,7 @@ public class ProductoActivity extends AppCompatActivity {
                     }
                 });
 
+        // Configuración de OnClickListener para el botón de retroceso
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,6 +233,7 @@ public class ProductoActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de OnClickListener para el botón de inicio
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,10 +242,15 @@ public class ProductoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
+    /**
+     * Método para enviar un pedido al servidor Firestore.
+     * @param nombre El nombre del producto.
+     * @param precio El precio del producto.
+     * @param numMesa El número de mesa.
+     * @param usuario El nombre de usuario.
+     */
     private void sendOrder(String nombre, String precio, String numMesa, String usuario) {
         Log.d("ProductoActivity", "sendOrder: Enviando pedido...");
 
@@ -268,5 +278,4 @@ public class ProductoActivity extends AppCompatActivity {
                     Toast.makeText(ProductoActivity.this, "Error al enviar pedido", Toast.LENGTH_SHORT).show();
                 });
     }
-
 }

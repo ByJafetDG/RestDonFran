@@ -33,38 +33,49 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * La actividad LoginActivity permite a los usuarios iniciar sesión en la aplicación DonFranRestaurant
+ * utilizando su correo electrónico y contraseña, o iniciar sesión con sus cuentas de Google.
+ */
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private SharedPreferences sharedPreferences;
 
+    /**
+     * Método llamado al crear la actividad. Configura la interfaz de usuario y define los listeners de eventos.
+     * @param savedInstanceState El estado anterior de la actividad, si lo hay.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Inicialización de FirebaseAuth y FirebaseFirestore
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Obtención de referencias a elementos de la interfaz de usuario
         Button btnLoginL = findViewById(R.id.btnLoginL);
         Button btnVolver = findViewById(R.id.btnVolver);
-
         EditText etUsername = findViewById(R.id.etUsername);
         EditText etEmail = findViewById(R.id.etEmail);
         EditText etPass = findViewById(R.id.etPass);
-
         ImageView ivGoogle = findViewById(R.id.ivGoogle);
         ImageView ivFacebook = findViewById(R.id.ivFacebook);
         ImageView ivInstagram = findViewById(R.id.ivInstagram);
         ImageView ivWhatsapp = findViewById(R.id.ivWhatsapp);
 
+        // Inicialización de SharedPreferences para almacenar el estado de inicio de sesión
         sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
 
+        // Comprobar si el usuario ya ha iniciado sesión
         if (sharedPreferences.getBoolean("loggedIn", false)) {
             navigateToMenuActivity();
         }
 
+        // Configuración de OnClickListener para el icono de Google
         ivGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Other social media click listeners
+        // Configuración de OnClickListener para otros iconos de redes sociales
         ivFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de OnClickListener para el botón de volver
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,13 +111,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de OnClickListener para el botón de inicio de sesión
         btnLoginL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Obtención de los datos ingresados por el usuario
                 String email = etEmail.getText().toString().trim();
                 String password = etPass.getText().toString().trim();
                 String username = etUsername.getText().toString().trim();
 
+                // Validación de los campos ingresados
                 if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
                     showToast("Por favor, completa todos los campos");
                     return;
@@ -116,11 +131,15 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Inicio de sesión con correo electrónico y contraseña
                 loginWithEmailPassword(email, password, username);
             }
         });
     }
 
+    /**
+     * Método para iniciar el flujo de inicio de sesión con Google.
+     */
     private void startGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -132,6 +151,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * Método para iniciar sesión con correo electrónico y contraseña en Firebase Authentication.
+     * @param email Correo electrónico del usuario.
+     * @param password Contraseña del usuario.
+     * @param username Nombre de usuario del usuario.
+     */
     private void loginWithEmailPassword(String email, String password, String username) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -147,24 +172,38 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Método para navegar a la actividad MainActivity.
+     */
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Método para navegar a la actividad MenuActivity.
+     */
     private void navigateToMenuActivity() {
         Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Método para guardar el estado de inicio de sesión en SharedPreferences.
+     */
     private void saveLoggedInState() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("loggedIn", true);
         editor.apply();
     }
 
+    /**
+     * Método para validar un correo electrónico utilizando una expresión regular.
+     * @param email Correo electrónico a validar.
+     * @return true si el correo electrónico es válido, false de lo contrario.
+     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
@@ -172,10 +211,20 @@ public class LoginActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
+    /**
+     * Método para mostrar un mensaje Toast.
+     * @param message El mensaje a mostrar.
+     */
     private void showToast(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Método llamado al recibir un resultado de una actividad iniciada para obtener un resultado.
+     * @param requestCode El código de solicitud original enviado a startActivityForResult().
+     * @param resultCode El código de resultado devuelto por la actividad.
+     * @param data Un Intent que lleva los datos resultantes.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -191,6 +240,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método para autenticar con Firebase utilizando las credenciales de Google.
+     * @param acct La cuenta de Google con la que se inició sesión.
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -208,4 +261,3 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 }
-

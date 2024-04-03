@@ -22,13 +22,18 @@ import com.squareup.picasso.Picasso;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+/**
+ * La actividad MenuActivity muestra el menú del restaurante con imágenes de los diferentes platos y bebidas.
+ * Permite al usuario ver los platos disponibles y seleccionar uno para ver más detalles.
+ */
 public class MenuActivity extends AppCompatActivity {
-
     private SharedPreferences sharedPreferences;
-
     private FirebaseFirestore firestore;
 
+    /**
+     * Método llamado al crear la actividad. Configura la interfaz de usuario y define los listeners de eventos.
+     * @param savedInstanceState El estado anterior de la actividad, si lo hay.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +49,15 @@ public class MenuActivity extends AppCompatActivity {
             return;
         }
 
+        // Inicialización de FirebaseFirestore
         firestore = FirebaseFirestore.getInstance();
 
+        // Obtención de referencias a elementos de la interfaz de usuario
         Button btnMenu = findViewById(R.id.btnMenu);
         Button btnBebidas = findViewById(R.id.btnBebidas);
-
         btnMenu.setBackgroundColor(Color.parseColor("#EEC800"));
-
         ScrollView svBebidas = findViewById(R.id.svBebidas);
         ScrollView svMenu = findViewById(R.id.svMenu);
-
         ImageView ivBack = findViewById(R.id.ivBack);
         ImageView ivHome = findViewById(R.id.ivHome);
 
@@ -69,6 +73,7 @@ public class MenuActivity extends AppCompatActivity {
         loadImagesFromFirestore("naturales", R.id.linearlayoutNaturales);
         loadImagesFromFirestore("calientes", R.id.linearlayoutCalientes);
 
+        // Configuración de OnClickListener para el botón de Bebidas
         btnBebidas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +86,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración de OnClickListener para el botón de Menú
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +107,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        // Agregar OnClickListener al ImageView de inicio para volver al menú principal
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +119,11 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método para cargar las imágenes desde Firestore y mostrarlas en la interfaz de usuario.
+     * @param collectionName El nombre de la colección en Firestore.
+     * @param linearLayoutId El ID del LinearLayout donde se mostrarán las imágenes.
+     */
     private void loadImagesFromFirestore(String collectionName, int linearLayoutId) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         firestore.collection(collectionName).get().addOnCompleteListener(task -> {
@@ -140,7 +152,6 @@ public class MenuActivity extends AppCompatActivity {
                             intent.putExtra("stars", productStars);
                             intent.putExtra("url", imageUrl);
                             startActivity(intent);
-
                         });
                         // Agregamos el ImageView al LinearLayout
                         linearLayout.addView(imageView);
@@ -152,6 +163,9 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método para mostrar un cuadro de diálogo de confirmación antes de cerrar sesión.
+     */
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Deseas cerrar sesión?");
@@ -170,6 +184,9 @@ public class MenuActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Método para cerrar sesión del usuario y redirigirlo a LoginActivity.
+     */
     private void logout() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
@@ -178,5 +195,4 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }
