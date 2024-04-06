@@ -1,6 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#0F151B">
+
+    <ImageView
+        android:id="@+id/ivBarBlackNavy"
+        android:layout_width="750dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/navyline" />
+
+    <ImageView
+        android:id="@+id/ivHome"
+        android:layout_width="39dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981"
+        app:srcCompat="@drawable/vectorhouse" />
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.713"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.979"
+        app:srcCompat="@drawable/user" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.983"
+        app:srcCompat="@drawable/vectorvolver" />
+
+    <ImageView
+        android:id="@+id/ivPicture"
+        android:layout_width="234dp"
+        android:layout_height="234dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.089"
+        tools:srcCompat="@drawable/vacaconsombreronobg" />
+
+    <TextView
+        android:id="@+id/tvEditPerfil"
+        android:layout_width="408dp"
+        android:layout_height="60dp"
+        android:background="#17222D"
+        android:fontFamily="@font/fenix"
+        android:gravity="center|start"
+        android:paddingLeft="30dp"
+        android:text="Editar perfil"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSoporte"
+        android:layout_width="408dp"
+        android:layout_height="60dp"
+        android:background="#17222D"
+        android:fontFamily="@font/fenix"
+        android:gravity="center|start"
+        android:paddingLeft="30dp"
+        android:text="Soporte"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.581" />
+
+    <ImageView
+        android:id="@+id/ivFlecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEditPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvEditPerfil"
+        app:srcCompat="@drawable/vectorflecha" />
+
+    <ImageView
+        android:id="@+id/ivFlecha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSoporte"
+        app:layout_constraintEnd_toEndOf="@+id/tvSoporte"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="@+id/tvSoporte"
+        app:layout_constraintTop_toTopOf="@+id/tvSoporte"
+        app:srcCompat="@drawable/vectorflecha" />
+
+    <TextView
+        android:id="@+id/tvEditPicture"
+        android:layout_width="205dp"
+        android:layout_height="37dp"
+        android:fontFamily="@font/fenix"
+        android:gravity="center_vertical"
+        android:text="Foto de perfil"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditPerfil"
+        app:layout_constraintVertical_bias="0.399" />
+
+    <TextView
+        android:id="@+id/tvEdittUserName"
+        android:layout_width="205dp"
+        android:layout_height="37dp"
+        android:fontFamily="@font/fenix"
+        android:gravity="center_vertical"
+        android:text="Nombre de usuario"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditPerfil"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <EditText
+        android:id="@+id/etUserName"
+        android:layout_width="346dp"
+        android:layout_height="54dp"
+        android:ems="10"
+        android:hint="Nombre de usuario"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#A29999"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEdittUserName"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <RadioGroup
+        android:id="@+id/rgGroup"
+        android:layout_width="359dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="55dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.634"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvEditPicture"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RadioButton
+            android:id="@+id/rdImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fenix"
+            android:text="Gallina"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/rdImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="123dp"
+            android:layout_marginTop="-48dp"
+            android:fontFamily="@font/fenix"
+            android:text="Vaca"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/rdImage3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="245dp"
+            android:layout_marginTop="-48dp"
+            android:fontFamily="@font/fenix"
+            android:text="Cerdo"
+            android:textColor="#FFFFFF" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnCambiar"
+        android:layout_width="152dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#EEC800"
+        android:fontFamily="@font/fenix"
+        android:text="Cambiar"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:cornerRadius="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.894" />
+
+    <TextView
+        android:id="@+id/tvNombreUsuario"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fenix"
+        android:gravity="center"
+        android:text="nombre de usuario"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBarBlackNavy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPicture"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

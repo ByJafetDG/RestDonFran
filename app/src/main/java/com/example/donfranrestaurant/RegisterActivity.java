@@ -115,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Configuración de OnClickListener para el botón de registro
         /*-------------------------FIREBASE FIRESTONE-------------------------*/
+        // Configuración de OnClickListener para el botón de registro
         btnRegisterR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,46 +138,67 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Registrar al usuario con correo electrónico y contraseña en Firebase Authentication
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // El registro fue exitoso
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                // Obtener la URL de la imagen por defecto de la colección "imgprofile" con el nombre "Vaca"
+                db.collection("imgprofile")
+                        .whereEqualTo("nombre", "Vaca")
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                // Obtener la URL del primer documento (suponiendo que solo hay uno con el mismo nombre)
+                                String defaultImageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("url");
 
-                                    // Guardar el nombre de usuario en Firestore
-                                    Map<String, Object> userData = new HashMap<>();
-                                    userData.put("username", username);
-                                    userData.put("email", email);
-                                    db.collection("users").document(user.getUid()).set(userData)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    // El nombre de usuario se guardó correctamente en Firestore
-                                                    Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                // Registrar al usuario con correo electrónico y contraseña en Firebase Authentication
+                                mAuth.createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    // El registro fue exitoso
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+
+                                                    // Guardar el nombre de usuario y la imagen por defecto en Firestore
+                                                    Map<String, Object> userData = new HashMap<>();
+                                                    userData.put("username", username);
+                                                    userData.put("email", email);
+                                                    userData.put("imagen", defaultImageUrl); // Establecer la imagen por defecto
+                                                    db.collection("users").document(user.getUid()).set(userData)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    // El usuario se registró correctamente
+                                                                    Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    // Error al guardar los datos del usuario en Firestore
+                                                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                } else {
+                                                    // El registro falló, muestra un mensaje de error
+                                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // Error al guardar el nombre de usuario en Firestore
-                                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                } else {
-                                    // El registro falló, muestra un mensaje de error
-                                    Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
+                                            }
+                                        });
+                                // Limpiar campos después del registro
+                                etEmail.setText("");
+                                etPass.setText("");
+                                etUsername.setText("");
+                            } else {
+                                // No se encontró ningún documento con el nombre seleccionado
+                                Toast.makeText(RegisterActivity.this, "No se encontró la imagen por defecto en la base de datos", Toast.LENGTH_SHORT).show();
                             }
+                        })
+                        .addOnFailureListener(e -> {
+                            // Manejar errores de lectura de Firestore
+                            Toast.makeText(RegisterActivity.this, "Error al obtener datos de la base de datos", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         });
-                // Limpiar campos después del registro
-                etEmail.setText("");
-                etPass.setText("");
-                etUsername.setText("");
             }
         });
+
         /*-------------------------/FIREBASE-FIRESTONE/-------------------------*/
     }
 

@@ -60,6 +60,8 @@ public class MenuActivity extends AppCompatActivity {
         ScrollView svMenu = findViewById(R.id.svMenu);
         ImageView ivBack = findViewById(R.id.ivBack);
         ImageView ivHome = findViewById(R.id.ivHome);
+        ImageView ivProfile = findViewById(R.id.ivProfile);
+
 
         // Aquí llamamos a un método para cargar las imágenes dinámicamente en cada contenedor
         loadImagesFromFirestore("entradas", R.id.linearlayoutEntradas);
@@ -117,6 +119,16 @@ public class MenuActivity extends AppCompatActivity {
                 btnBebidas.setBackgroundColor(Color.TRANSPARENT);
             }
         });
+
+        // Agregar OnClickListener al ImageView de inicio para volver al menú principal
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
