@@ -69,22 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
         // Inicialización de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
-        // Configuración de OnClickListener para los iconos de redes sociales
-        ivGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Configuración de inicio de sesión con Google
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
-
-                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(RegisterActivity.this, gso);
-
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
-        });
         ivFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,85 +199,4 @@ public class RegisterActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    /**
-     * Método llamado al recibir un resultado de una actividad iniciada para obtener un resultado.
-     * @param requestCode El código de solicitud original enviado a startActivityForResult().
-     * @param resultCode El código de resultado devuelto por la actividad.
-     * @param data Un Intent que lleva los datos resultantes.
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Verifica si el resultado corresponde al inicio de sesión con Google
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // El inicio de sesión con Google fue exitoso, autentica con Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // El inicio de sesión con Google falló, muestra un mensaje de error
-                Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(RegisterActivity.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    /**
-     * Método para autenticar con Firebase utilizando las credenciales de Google.
-     * @param acct La cuenta de Google con la que se inició sesión.
-     */
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Autenticación con Firebase exitosa, el usuario se registró correctamente
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            // Generar un nombre de usuario único utilizando el nombre de correo electrónico
-                            String username = generateUniqueUsernameFromEmail(user.getEmail());
-
-                            // Guardar el nombre de usuario en Firestore
-                            Map<String, Object> userData = new HashMap<>();
-                            userData.put("username", username);
-                            userData.put("email", user.getEmail());
-                            db.collection("users").document(user.getUid()).set(userData)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // El nombre de usuario se guardó correctamente en Firestore
-                                            Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Error al guardar el nombre de usuario en Firestore
-                                            Toast.makeText(RegisterActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        } else {
-                            // La autenticación con Firebase falló
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    /**
-     * Método para generar un nombre de usuario único utilizando el nombre de correo electrónico.
-     * @param email El correo electrónico del usuario.
-     * @return Un nombre de usuario único generado a partir del correo electrónico.
-     */
-    private String generateUniqueUsernameFromEmail(String email) {
-        // Generar un nombre de usuario único utilizando el nombre de correo electrónico
-        String username = email.split("@")[0]; // Obtener la parte del correo electrónico antes del símbolo @
-        return username;
-    }
 }

@@ -23,13 +23,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -252,12 +257,63 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             saveLoggedInState();
-                            showToast("Inicio de sesión con Google exitoso");
-                            navigateToMenuActivity();
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            // Obtener la URL de la imagen por defecto de Firestore
+                            db.collection("imgprofile")
+                                    .whereEqualTo("nombre", "Vaca")
+                                    .get()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                        if (!queryDocumentSnapshots.isEmpty()) {
+                                            // Obtener la URL del primer documento (suponiendo que solo hay uno con el mismo nombre)
+                                            String defaultImageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("url");
+
+                                            // Guardar el nombre de usuario y la imagen por defecto en Firestore
+                                            Map<String, Object> userData = new HashMap<>();
+                                            userData.put("username", generateUniqueUsernameFromEmail(user.getEmail()));
+                                            userData.put("email", user.getEmail());
+                                            userData.put("imagen", defaultImageUrl); // Establecer la imagen por defecto
+                                            db.collection("users").document(user.getUid()).set(userData)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            // El usuario se registró correctamente
+                                                            Toast.makeText(LoginActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                                            navigateToMenuActivity();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            // Error al guardar los datos del usuario en Firestore
+                                                            Toast.makeText(LoginActivity.this, "Error al registrar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        } else {
+                                            // No se encontró ningún documento con el nombre seleccionado
+                                            Toast.makeText(LoginActivity.this, "No se encontró la imagen por defecto en la base de datos", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Manejar errores de lectura de Firestore
+                                        Toast.makeText(LoginActivity.this, "Error al obtener datos de la base de datos", Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    });
                         } else {
                             showToast("Error al iniciar sesión con Google");
                         }
                     }
                 });
+    }
+
+    /**
+     * Método para generar un nombre de usuario único utilizando el nombre de correo electrónico.
+     * @param email El correo electrónico del usuario.
+     * @return Un nombre de usuario único generado a partir del correo electrónico.
+     */
+    private String generateUniqueUsernameFromEmail(String email) {
+        // Generar un nombre de usuario único utilizando el nombre de correo electrónico
+        String username = email.split("@")[0]; // Obtener la parte del correo electrónico antes del símbolo @
+        return username;
     }
 }
